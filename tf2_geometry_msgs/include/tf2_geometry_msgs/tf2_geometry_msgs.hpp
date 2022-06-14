@@ -51,6 +51,7 @@
 #include <geometry_msgs/msg/wrench.hpp>
 #include <geometry_msgs/msg/wrench_stamped.hpp>
 #include <kdl/frames.hpp>
+#include <tf2_eigen/tf2_eigen.hpp>
 
 #include <array>
 #include <string>
@@ -1177,8 +1178,15 @@ template<>
 inline
   void doTransform(const geometry_msgs::msg::Wrench& t_in, geometry_msgs::msg::Wrench& t_out, const geometry_msgs::msg::TransformStamped& transform)
   {
-    doTransform(t_in.force, t_out.force, transform);
-    doTransform(t_in.torque, t_out.torque, transform);
+    Eigen::VectorXd wrench_in(6), wrench_out(6);
+    wrench_in << t_in.force.x, t_in.force.y, t_in.force.z, t_in.torque.x, t_in.torque.y, t_in.torque.z;
+    tf2::doTransform(wrench_in, wrench_out, transform);
+    t_out.force.x = wrench_out[0];
+    t_out.force.y = wrench_out[1];
+    t_out.force.z = wrench_out[2];
+    t_out.torque.x = wrench_out[3];
+    t_out.torque.y = wrench_out[4];
+    t_out.torque.z = wrench_out[5];
   }
 
 /** \brief Apply a geometry_msgs TransformStamped to an geometry_msgs WrenchStamped type.
