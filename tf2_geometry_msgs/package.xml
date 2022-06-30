@@ -17,6 +17,7 @@
   <depend>orocos_kdl</depend>
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
+  <depend>tf2_eigen</depend>
 
   <!-- python support not yet ported
   <build_depend>python_orocos_kdl</build_depend>

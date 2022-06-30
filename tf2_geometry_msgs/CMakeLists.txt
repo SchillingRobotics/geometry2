@@ -10,11 +10,18 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_auto REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(orocos_kdl REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_eigen REQUIRED)
+
 set(required_dependencies
   "geometry_msgs"
   "orocos_kdl"
   "tf2"
   "tf2_ros"
+  "tf2_eigen"
 )
 ament_auto_find_build_dependencies(REQUIRED ${required_dependencies})
 
@@ -49,6 +56,7 @@ if(BUILD_TESTING)
       "rclcpp"
       "tf2"
       "tf2_ros"
+      "tf2_eigen"
     )
   endif()
 endif()
